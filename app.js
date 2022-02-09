@@ -16,7 +16,7 @@ const publicDirectoryPath = path.resolve(__dirname, "./public")
 app.use(express.static(publicDirectoryPath))
 
 
-io.on('connnection', (socket) =>{
+io.on('connection', (socket) =>{
     console.log('New WebSokect connection')
     
     socket.emit('countUpdated')
