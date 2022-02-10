@@ -28,8 +28,9 @@ io.on('connection', (socket) =>{
     socket.broadcast.emit('message', 'A new user had joined')
 
 
-    socket.on('sendMessage', (message) => {
+    socket.on('sendMessage', (message, callback) => {
         io.emit('message', message)
+        callback('Develived!')
     })
 
     socket.on('sendLocation', (coords) => {

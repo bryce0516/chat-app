@@ -14,7 +14,9 @@ document.querySelector("#message-form").addEventListener('submit', (event) => {
     event.preventDefault();
 
     const message = event.target.elements.message.value
-    socket.emit('sendMessage', message)
+    socket.emit('sendMessage', message, (messageFromServer) => {
+        console.log("messgae was delivered!",messageFromServer)
+    })
 })
 
 
