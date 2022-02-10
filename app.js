@@ -22,15 +22,12 @@ app.use(express.static(publicDirectoryPath))
 let count = 0
 io.on('connection', (socket) =>{
     console.log('New WebSokect connection')
-    
-    socket.emit('countUpdated', count)
 
-    socket.on('increment', () => {
-        count++
-        // socket.emit('countUpdated',count)
 
-        io.emit('countUpdated',count)
+    socket.on('sendMessage', (message) => {
+        io.emit('message', message)
     })
+
 })
 
 server.listen(Port, () => console.log(`server is up on port ${Port}`))
