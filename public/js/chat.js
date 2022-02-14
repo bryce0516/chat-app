@@ -6,16 +6,19 @@ const socket = io()
 //     console.log("The count has been updated!", count)
 // })
 
+//Elements
 const $messageForm = document.querySelector("#message-form")
 const $messsageFormInput = $messageForm.querySelector('input')
 const $messageFormButton = $messageForm.querySelector('button')
 const $sendLocationButton = document.querySelector("#send-location")
 const $messages = document.querySelector("#messages")
 
-
+//templates
 const messageTemplate = document.querySelector("#message-template").innerHTML
 const locationMessageTemplate = document.querySelector("#location-message-template").innerHTML
 
+//options
+const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true})
 
 socket.on('message', (message) => {
     console.log("message from server => ",message)
@@ -84,3 +87,6 @@ $sendLocationButton.addEventListener('click', () => {
 //     console.log("Clicked")
 //     socket.emit('increment')
 // })
+
+
+socket.emit('join', {username, room})
