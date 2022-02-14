@@ -5,7 +5,7 @@ const http = require('http');
 const server = http.createServer(app);
 const socketio = require("socket.io");
 const io = socketio(server)
-
+const {generateMessage} = require("./src/util/messages")
 const Filter = require("bad-words")
 
 const Port = process.env.Port || 3011
@@ -25,8 +25,9 @@ let count = 0
 io.on('connection', (socket) =>{
     console.log('New WebSokect connection')
 
-    socket.emit('message', "Welcome!")
-    socket.broadcast.emit('message', 'A new user had joined')
+    socket.emit('message', generateMessage("Welcome!"))
+
+    socket.broadcast.emit('message', generateMessage('A new user had joined'))
 
 
     socket.on('sendMessage', (message, callback) => {
@@ -36,7 +37,7 @@ io.on('connection', (socket) =>{
             return callback('Profanity is not allowed')
         }
 
-        io.emit('message', message)
+        io.emit('message', generateMessage(message))
         callback()
     })
 
@@ -46,7 +47,7 @@ io.on('connection', (socket) =>{
     })
 
     socket.on('disconnect', () => {
-        io.emit('message', 'A user has left!')
+        io.emit('message', generateMessage('A user has left!'))
     })
 
 })
